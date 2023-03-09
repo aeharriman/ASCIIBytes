@@ -26,7 +26,7 @@ char_font;
 uint8_t bi_to_int(char *binary_input);
 char *int_to_bi(uint8_t charnum, char *binary_location);
 bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9]);
-void convert(char *c_input);
+void convert(char *c_input, char_font c_font[26]);
 
 int main(int argc, char *argv[])
 {
@@ -300,7 +300,7 @@ int main(int argc, char *argv[])
     if (option_e_d_c == 'c')
     {
         //TODO turn into a function
-        convert(user_input);
+        convert(user_input, font);
     }
     else
     {
@@ -383,24 +383,24 @@ uint8_t bi_to_int(char *binary_input)
 
 
 // Turn input directly into binary without encrypting
-void convert(char *c_input)
+void convert(char *c_input, char_font c_font[26])
 {
     for (int i = 0; i < 5; i++)
     {
-        for (int j = 0; j < strlen(user_input); j++)
+        for (int j = 0; j < strlen(c_input); j++)
         {
             for (int k = 0; k < 8; k++)
             {
-                if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
+                if (c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k] == '0')
                 {
                     printf("\033[0;30m");
-                    printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                    printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
                     printf("\033[0;30m");
                 }
                 else
                 {
                     printf("\033[0;32m");
-                    printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                    printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
                     printf("\033[0;30m");
                 }
             }
