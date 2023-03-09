@@ -24,25 +24,29 @@ bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9]);
 
 int main(int argc, char *argv[])
 {
-    bool is_encrypting;
+    char option_e_d_c;
     char *e_d_string[7];
     char *user_input;
 
     // Check for correct usage
     // if (argc!= 3)
     // {
-    //     printf("Usage: ./ASCIIBytes encrypt|decrypt input\n");
+    //     printf("Usage: ./ASCIIBytes encrypt|e|decrypt|d|convert|c input\n");
     //     return 1;
     // }
 
     // Assign variables based on input
     if (strcasecmp(argv[1], "E") == 0 || strcasecmp(argv[1], "encode") == 0)
     {
-        is_encrypting = true;
+        option_e_d_c = 'e';
     } 
     else if (strcasecmp(argv[1], "D") == 0 || strcasecmp(argv[1], "decode") == 0)
     {
-        is_encrypting = false;
+        option_e_d_c = 'd';
+    }
+    else if (strcasecmp(argv[1], "C") == 0 || strcasecmp(argv[1], "convert") == 0)
+    {
+        option_e_d_c = 'c';
     }
     else
     {
@@ -73,7 +77,7 @@ int main(int argc, char *argv[])
         int_to_bi(ASCII_index, binary_string);
         for (int j = 0; j < 9; j++)
         {
-        acceptabytes[i][j] = binary_string[j];
+            acceptabytes[i][j] = binary_string[j];
         }
         //printf("!!! %s\n", &acceptabytes[i][0]);
     }
@@ -279,7 +283,7 @@ int main(int argc, char *argv[])
     }
 
     // // Checking that functions are working
-    // printf("Is encrypting: %i\n", is_encrypting);
+    // printf("edc: %c\n", option_e_d_c);
     // printf("User input: %s\n", user_input);
     // // printf("Parsed input: %s\n", parsed_input);
     // // Remember that all of the outputs are references to the holding variable. Save in a holding variable with &.
@@ -293,7 +297,7 @@ int main(int argc, char *argv[])
 //    for every char in input
 // find that char's ascii value
 // print the equivalent first value
-    if (is_encrypting)
+    if (option_e_d_c == 'c')
     {
         for (int i = 0; i < 5; i++)
         {
@@ -412,6 +416,29 @@ uint8_t bi_to_int(char *binary_input)
         //     printf("\n");
         // }
 
+
+        // for (int i = 0; i < 5; i++)
+        // {
+        //     for (int j = 0; j < strlen(user_input); j++)
+        //     {
+        //         for (int k = 0; k < 8; k++)
+        //         {
+        //             if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
+        //             {
+        //                 printf("\033[0;30m");
+        //                 printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+        //                 printf("\033[0;30m");
+        //             }
+        //             else
+        //             {
+        //                 printf("\033[0;32m");
+        //                 printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+        //                 printf("\033[0;30m");
+        //             }
+        //         }
+        //     }
+        //     printf("\n");
+        // }
 
 
 
