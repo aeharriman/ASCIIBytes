@@ -303,11 +303,15 @@ int main(int argc, char *argv[])
                 {
                     if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
                     {
+                        printf("\033[0;30m");
                         printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                        printf("\033[0;30m");
                     }
                     else
                     {
+                        printf("\033[0;32m");
                         printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                        printf("\033[0;30m");
                     }
                 }
             }
