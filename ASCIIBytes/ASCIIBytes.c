@@ -7,12 +7,15 @@
 #include <ctype.h>
 
 // A program using encryption as a form of artistic expression
+// added args to launch.json for debugging
 
 // Make print to acceptable not array but file
 
 // Turn space into indicator to make new line
 
 // Split into different files. Maybe a different file for font 
+
+// Figure out why gitignore is not working on .exe and .json
 
 typedef struct char_font
 {
@@ -26,6 +29,8 @@ char_font;
 uint8_t bi_to_int(char *binary_input);
 char *int_to_bi(uint8_t charnum, char *binary_location);
 bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9]);
+void encrypt(char *e_input, char_font e_font[26]);
+// void decrypt(char *d_input, char_font d_font[26]);
 void convert(char *c_input, char_font c_font[26]);
 
 int main(int argc, char *argv[])
@@ -297,15 +302,18 @@ int main(int argc, char *argv[])
     // printf("argv2: %s\n", argv[2]);
 
    // Run Encrypt/Decrypt/Convert depending on input
-    if (option_e_d_c == 'c')
+    if (option_e_d_c == 'e')
     {
         //TODO turn into a function
-        convert(user_input, font);
+        encrypt(user_input, font);
+    }
+    else if (option_e_d_c == 'd')
+    {
+        // decrypt(user_input, font);
     }
     else
     {
-        printf("de");
-        // decrypt
+        convert(user_input, font);
     }
 
     free(user_input);
@@ -372,16 +380,31 @@ uint8_t bi_to_int(char *binary_input)
     return sum;
 }
 
+//-------------------------------------------------------------------------------------------
 // Now we need to take the string input, loop through the characters, 
 // and for each character add it's 0 ascii to the string you will return, repeat through 5th index.
     // LEVEL 4 Function input: string(original) output: string(encoded)
+void encrypt(char *e_input, char_font e_font[26])
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < strlen(e_input); j++)
+        {
+            printf("%c", e_font[(int)(toupper(e_input[j]) - 'A')].bytes[i]);
+        }
+        // Decide whether to leave this in, it looks really cool in output just make sure newline characters dont affect input
+        // printf("\n");
+    }
+}
 
 
+
+//-------------------------------------------------------------------------------------------
 // Now for the reverse:
     // LEVEL 5 Function input: string(encoded) output: string(decoded)
         // Will need to divide total number of characters by 5 to figure out where to put newlines
 
-
+//-------------------------------------------------------------------------------------------
 // Turn input directly into binary without encrypting
 void convert(char *c_input, char_font c_font[26])
 {
@@ -410,7 +433,7 @@ void convert(char *c_input, char_font c_font[26])
 }
 
 
-
+// Version from before I looped through chars individually to add color:
         // for (int i = 0; i < 5; i++)
         // {
         //     for (int j = 0; j < strlen(user_input); j++)
@@ -419,35 +442,6 @@ void convert(char *c_input, char_font c_font[26])
         //     }
         //     printf("\n");
         // }
-
-
-        // for (int i = 0; i < 5; i++)
-        // {
-        //     for (int j = 0; j < strlen(user_input); j++)
-        //     {
-        //         for (int k = 0; k < 8; k++)
-        //         {
-        //             if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
-        //             {
-        //                 printf("\033[0;30m");
-        //                 printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
-        //                 printf("\033[0;30m");
-        //             }
-        //             else
-        //             {
-        //                 printf("\033[0;32m");
-        //                 printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
-        //                 printf("\033[0;30m");
-        //             }
-        //         }
-        //     }
-        //     printf("\n");
-        // }
-
-
-
-        ///-------------------------------------------------
-
 
         //----------------------------------------------------------------------
 // Ultimate functionality:
