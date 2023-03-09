@@ -7,7 +7,12 @@
 #include <ctype.h>
 
 // A program using encryption as a form of artistic expression
+
 // Make print to acceptable not array but file
+
+// Turn space into indicator to make new line
+
+// Split into different files. Maybe a different file for font 
 
 typedef struct char_font
 {
@@ -21,6 +26,7 @@ char_font;
 uint8_t bi_to_int(char *binary_input);
 char *int_to_bi(uint8_t charnum, char *binary_location);
 bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9]);
+void convert(char *c_input);
 
 int main(int argc, char *argv[])
 {
@@ -68,7 +74,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    // Make array of bytes that represent viable ASCII characters
+    // Make array of bytes that represent viable ASCII characters for use in the font
     char binary_string[9];
     char acceptabytes[(126 - 33)][9];
     for (int i = 0, ASCII_index = 33; i < (126 - 33); i++, ASCII_index++)
@@ -268,11 +274,7 @@ int main(int argc, char *argv[])
     font[25].bytes[3] = "01100000";
     font[25].bytes[4] = "01111100";
 
-
-    // printf("binary: %i\n", byte_check("01000110", acceptabytes));
-    printf("argv1: %s\n", argv[1]);
-    printf("argv2: %s\n", argv[2]);
-
+    // Adds the associated ASCII characters for each row of binary font
     for (int i = 0; i < 26; i++)
     {
         for (int j = 0; j < 5; j++)
@@ -290,37 +292,15 @@ int main(int argc, char *argv[])
     // printf("decimal: %i\n", bi_to_int("11111111"));
     // //printf("test\n");
     // printf("binary from int: %s\n", int_to_bi(38, binary_string));
+    // printf("binary: %i\n", byte_check("01000110", acceptabytes));
+    // printf("argv1: %s\n", argv[1]);
+    // printf("argv2: %s\n", argv[2]);
 
-   // Run Encode/ decode depending on input
-
-// 5 times, one for each row
-//    for every char in input
-// find that char's ascii value
-// print the equivalent first value
+   // Run Encrypt/Decrypt/Convert depending on input
     if (option_e_d_c == 'c')
     {
-        for (int i = 0; i < 5; i++)
-        {
-            for (int j = 0; j < strlen(user_input); j++)
-            {
-                for (int k = 0; k < 8; k++)
-                {
-                    if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
-                    {
-                        printf("\033[0;30m");
-                        printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
-                        printf("\033[0;30m");
-                    }
-                    else
-                    {
-                        printf("\033[0;32m");
-                        printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
-                        printf("\033[0;30m");
-                    }
-                }
-            }
-            printf("\n");
-        }
+        //TODO turn into a function
+        convert(user_input);
     }
     else
     {
@@ -402,8 +382,32 @@ uint8_t bi_to_int(char *binary_input)
         // Will need to divide total number of characters by 5 to figure out where to put newlines
 
 
-
-
+// Turn input directly into binary without encrypting
+void convert(char *c_input)
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < strlen(user_input); j++)
+        {
+            for (int k = 0; k < 8; k++)
+            {
+                if (font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k] == '0')
+                {
+                    printf("\033[0;30m");
+                    printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                    printf("\033[0;30m");
+                }
+                else
+                {
+                    printf("\033[0;32m");
+                    printf("%c", font[(int)(toupper(user_input[j]) - 'A')].bytes[i][k]);
+                    printf("\033[0;30m");
+                }
+            }
+        }
+        printf("\n");
+    }
+}
 
 
 
