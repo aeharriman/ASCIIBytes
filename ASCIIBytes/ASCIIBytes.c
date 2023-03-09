@@ -289,14 +289,22 @@ int main(int argc, char *argv[])
         }
     }
 
+
+//checking that asciis is getting filled properly
+        for (int i = 0; i < 5; i++)
+        {
+        printf("%c", font[0].ASCIIs[i]);
+        // printf("int %c\n", font[i].ASCIIs[j]);
+        }
+
     // // Checking that functions are working
     // printf("edc: %c\n", option_e_d_c);
     // printf("User input: %s\n", user_input);
     // // printf("Parsed input: %s\n", parsed_input);
     // // Remember that all of the outputs are references to the holding variable. Save in a holding variable with &.
-    // printf("decimal: %i\n", bi_to_int("11111111"));
+    printf("decimal: %i\n", bi_to_int("00000011"));
     // //printf("test\n");
-    // printf("binary from int: %s\n", int_to_bi(38, binary_string));
+    printf("binary from int: %s, character: %c\n", int_to_bi(38, binary_string), 38);
     // printf("binary: %i\n", byte_check("01000110", acceptabytes));
     // printf("argv1: %s\n", argv[1]);
     // printf("argv2: %s\n", argv[2]);
@@ -390,10 +398,10 @@ void encrypt(char *e_input, char_font e_font[26])
     {
         for (int j = 0; j < strlen(e_input); j++)
         {
-            printf("%c", e_font[(int)(toupper(e_input[j]) - 'A')].bytes[i]);
+            printf("%c", e_font[(int)(toupper(e_input[j]) - 'A')].ASCIIs[i]);
         }
         // Decide whether to leave this in, it looks really cool in output just make sure newline characters dont affect input
-        // printf("\n");
+        printf("\n");
     }
 }
 
