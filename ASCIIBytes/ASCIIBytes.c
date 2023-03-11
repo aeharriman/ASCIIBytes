@@ -168,14 +168,14 @@ int main(int argc, char *argv[])
     font[9].bytes[1] = "00110000";
     font[9].bytes[2] = "00110000";
     font[9].bytes[3] = "00110000";
-    font[9].bytes[4] = "01100000";
+    font[9].bytes[4] = "01110000";
 
     font[10].letter = 'k';
-    font[10].bytes[0] = "01001000";
-    font[10].bytes[1] = "01010000";
-    font[10].bytes[2] = "01100000";
-    font[10].bytes[3] = "01001000";
-    font[10].bytes[4] = "01000100";
+    font[10].bytes[0] = "01001100";
+    font[10].bytes[1] = "01011000";
+    font[10].bytes[2] = "01110000";
+    font[10].bytes[3] = "01011000";
+    font[10].bytes[4] = "01000110";
 
     font[11].letter = 'l';
     font[11].bytes[0] = "01000000";
@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
     font[11].bytes[4] = "01111100";
 
     font[12].letter = 'm';
-    font[12].bytes[0] = "00100100";
+    font[12].bytes[0] = "01100110";
     font[12].bytes[1] = "01011010";
     font[12].bytes[2] = "01011010";
     font[12].bytes[3] = "01000010";
@@ -250,8 +250,8 @@ int main(int argc, char *argv[])
     font[21].letter = 'v';
     font[21].bytes[0] = "01000010";
     font[21].bytes[1] = "01000010";
-    font[21].bytes[2] = "00100100";
-    font[21].bytes[3] = "00100100";
+    font[21].bytes[2] = "01100110";
+    font[21].bytes[3] = "01101100";
     font[21].bytes[4] = "00111000";
 
     font[22].letter = 'w';
@@ -259,13 +259,13 @@ int main(int argc, char *argv[])
     font[22].bytes[1] = "01000010";
     font[22].bytes[2] = "01011010";
     font[22].bytes[3] = "01011010";
-    font[22].bytes[4] = "00100100";
+    font[22].bytes[4] = "01100110";
     
     font[23].letter = 'x';
     font[23].bytes[0] = "01000010";
-    font[23].bytes[1] = "00100100";
+    font[23].bytes[1] = "01100110";
     font[23].bytes[2] = "00111100";
-    font[23].bytes[3] = "00100100";
+    font[23].bytes[3] = "01100110";
     font[23].bytes[4] = "01000010";
 
     font[24].letter = 'y';
@@ -279,7 +279,7 @@ int main(int argc, char *argv[])
     font[25].bytes[0] = "01111000";
     font[25].bytes[1] = "00111000";
     font[25].bytes[2] = "00110000";
-    font[25].bytes[3] = "01100000";
+    font[25].bytes[3] = "01110000";
     font[25].bytes[4] = "01111100";
 
     // Adds the associated ASCII characters for each row of binary font
