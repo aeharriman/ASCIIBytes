@@ -19,7 +19,6 @@
 
 typedef struct char_font
 {
-    char letter;
     char *bytes[5];
     char ASCIIs[5];
 }
@@ -39,12 +38,12 @@ int main(int argc, char *argv[])
     char *e_d_string[7];
     char *user_input;
 
-    // Check for correct usage
-    // if (argc!= 3)
-    // {
-    //     printf("Usage: ./ASCIIBytes encrypt|e|decrypt|d|convert|c input\n");
-    //     return 1;
-    // }
+    // Checks for correct usage. Had to disable when debugging because debugger adds extra aguments
+    if (argc!= 3)
+    {
+        printf("Usage: ./ASCIIBytes encrypt|e|decrypt|d|convert|c \"input\"\n");
+        return 1;
+    }
 
     // Assign variables based on input
     if (strcasecmp(argv[1], "E") == 0 || strcasecmp(argv[1], "encode") == 0)
@@ -65,14 +64,14 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Pares the input down to a-z characters
+    // Pares the input down to a-z characters when not decrypting
     user_input = malloc(sizeof(argv[2]));
     strcpy(user_input, argv[2]);
     if (option_e_d_c != 'd')
     {
         for (int i = 0; i < strlen(user_input); i++)
         {
-            // Could use isalpha() but doing it the granular way fits the spirit of the project
+            // Could use isalpha() but the granular way fits the spirit of the project
             if (toupper(user_input[i]) < 64 || toupper(user_input[i]) > 91)
             {
                 printf("Alphabetical characters only, please.\n");
@@ -87,195 +86,192 @@ int main(int argc, char *argv[])
     char acceptabytes[(126 - 33)][9];
     for (int i = 0, ASCII_index = 33; i < (126 - 33); i++, ASCII_index++)
     {
-        // Memory location for int_to_bi
         int_to_bi(ASCII_index, binary_string);
         for (int j = 0; j < 9; j++)
         {
             acceptabytes[i][j] = binary_string[j];
         }
-        //printf("!!! %s\n", &acceptabytes[i][0]);
     }
-    //printf("%s\n", &acceptabytes[57][0]);
 
     // Make a font
     char_font font[26];
 
-    font[0].letter = 'a';
+    // A
     font[0].bytes[0] = "00111000";
     font[0].bytes[1] = "01000100";
     font[0].bytes[2] = "01111100";
     font[0].bytes[3] = "01000100";
     font[0].bytes[4] = "01000100";
 
-    font[1].letter = 'b';
+    // B
     font[1].bytes[0] = "01111100";
     font[1].bytes[1] = "01000010";
     font[1].bytes[2] = "01111100";
     font[1].bytes[3] = "01000010";
     font[1].bytes[4] = "01111100";
 
-    font[2].letter = 'c';
+    // C
     font[2].bytes[0] = "00111100";
     font[2].bytes[1] = "01000010";
     font[2].bytes[2] = "01000000";
     font[2].bytes[3] = "01000010";
     font[2].bytes[4] = "00111100";
 
-    font[3].letter = 'd';
+    // D
     font[3].bytes[0] = "01111100";
     font[3].bytes[1] = "01000010";
     font[3].bytes[2] = "01000001";
     font[3].bytes[3] = "01000010";
     font[3].bytes[4] = "01111100";
 
-    font[4].letter = 'e';
+    // E
     font[4].bytes[0] = "01111100";
     font[4].bytes[1] = "01000000";
     font[4].bytes[2] = "01111000";
     font[4].bytes[3] = "01000000";
     font[4].bytes[4] = "01111100";
 
-    font[5].letter = 'f';
+    // F
     font[5].bytes[0] = "01111100";
     font[5].bytes[1] = "01000000";
     font[5].bytes[2] = "01111000";
     font[5].bytes[3] = "01000000";
     font[5].bytes[4] = "01000000";
 
-    font[6].letter = 'g';
+    // G
     font[6].bytes[0] = "00111100";
     font[6].bytes[1] = "01000000";
     font[6].bytes[2] = "01000110";
     font[6].bytes[3] = "01000010";
     font[6].bytes[4] = "00111100";
 
-    font[7].letter = 'h';
+    // H
     font[7].bytes[0] = "01000100";
     font[7].bytes[1] = "01000100";
     font[7].bytes[2] = "01111100";
     font[7].bytes[3] = "01000100";
     font[7].bytes[4] = "01000100";
 
-    font[8].letter = 'i';
+    // I
     font[8].bytes[0] = "01111000";
     font[8].bytes[1] = "00110000";
     font[8].bytes[2] = "00110000";
     font[8].bytes[3] = "00110000";
     font[8].bytes[4] = "01111000";
 
-    font[9].letter = 'j';
+    // J
     font[9].bytes[0] = "01111000";
     font[9].bytes[1] = "00110000";
     font[9].bytes[2] = "00110000";
     font[9].bytes[3] = "00110000";
     font[9].bytes[4] = "01110000";
 
-    font[10].letter = 'k';
+    // K
     font[10].bytes[0] = "01001100";
     font[10].bytes[1] = "01011000";
     font[10].bytes[2] = "01110000";
     font[10].bytes[3] = "01011000";
     font[10].bytes[4] = "01000110";
 
-    font[11].letter = 'l';
+    // L
     font[11].bytes[0] = "01000000";
     font[11].bytes[1] = "01000000";
     font[11].bytes[2] = "01000000";
     font[11].bytes[3] = "01000000";
     font[11].bytes[4] = "01111100";
 
-    font[12].letter = 'm';
+    // M
     font[12].bytes[0] = "01100110";
     font[12].bytes[1] = "01011010";
     font[12].bytes[2] = "01011010";
     font[12].bytes[3] = "01000010";
     font[12].bytes[4] = "01000010";
 
-    font[13].letter = 'n';
+    // N
     font[13].bytes[0] = "01000010";
     font[13].bytes[1] = "01100010";
     font[13].bytes[2] = "01010010";
     font[13].bytes[3] = "01001010";
     font[13].bytes[4] = "01000110";
 
-    font[14].letter = 'o';
+    // O
     font[14].bytes[0] = "00111100";
     font[14].bytes[1] = "01000010";
     font[14].bytes[2] = "01000010";
     font[14].bytes[3] = "01000010";
     font[14].bytes[4] = "00111100";
 
-    font[15].letter = 'p';
+    // P
     font[15].bytes[0] = "01111100";
     font[15].bytes[1] = "01000010";
     font[15].bytes[2] = "01111100";
     font[15].bytes[3] = "01000000";
     font[15].bytes[4] = "01000000";
 
-    font[16].letter = 'q';
+    // Q
     font[16].bytes[0] = "00111100";
     font[16].bytes[1] = "01000010";
     font[16].bytes[2] = "01000010";
     font[16].bytes[3] = "01000110";
     font[16].bytes[4] = "00111101";
 
-    font[17].letter = 'r';
+    // R
     font[17].bytes[0] = "01111100";
     font[17].bytes[1] = "01000010";
     font[17].bytes[2] = "01111100";
     font[17].bytes[3] = "01000100";
     font[17].bytes[4] = "01000010";
 
-    font[18].letter = 's';
+    // S
     font[18].bytes[0] = "00111100";
     font[18].bytes[1] = "01100010";
     font[18].bytes[2] = "00111000";
     font[18].bytes[3] = "01000110";
     font[18].bytes[4] = "00111100";
 
-    font[19].letter = 't';
+    // T
     font[19].bytes[0] = "01111000";
     font[19].bytes[1] = "00110000";
     font[19].bytes[2] = "00110000";
     font[19].bytes[3] = "00110000";
     font[19].bytes[4] = "00110000";
 
-    font[20].letter = 'u';
+    // U
     font[20].bytes[0] = "01000010";
     font[20].bytes[1] = "01000010";
     font[20].bytes[2] = "01000010";
     font[20].bytes[3] = "01000010";
     font[20].bytes[4] = "00111100";
 
-    font[21].letter = 'v';
+    // V
     font[21].bytes[0] = "01000010";
     font[21].bytes[1] = "01000010";
     font[21].bytes[2] = "01100110";
     font[21].bytes[3] = "01101100";
     font[21].bytes[4] = "00111000";
 
-    font[22].letter = 'w';
+    // W
     font[22].bytes[0] = "01000010";
     font[22].bytes[1] = "01000010";
     font[22].bytes[2] = "01011010";
     font[22].bytes[3] = "01011010";
     font[22].bytes[4] = "01100110";
     
-    font[23].letter = 'x';
+    // X
     font[23].bytes[0] = "01000010";
     font[23].bytes[1] = "01100110";
     font[23].bytes[2] = "00111100";
     font[23].bytes[3] = "01100110";
     font[23].bytes[4] = "01000010";
 
-    font[24].letter = 'y';
+    // Y
     font[24].bytes[0] = "01000100";
     font[24].bytes[1] = "01101100";
     font[24].bytes[2] = "00111000";
     font[24].bytes[3] = "00111000";
     font[24].bytes[4] = "00111000";
 
-    font[25].letter = 'z';
+    // Z
     font[25].bytes[0] = "01111000";
     font[25].bytes[1] = "00111000";
     font[25].bytes[2] = "00110000";
@@ -292,29 +288,9 @@ int main(int argc, char *argv[])
         }
     }
 
-
-    // //checking that asciis is getting filled properly
-    //     for (int i = 0; i < 5; i++)
-    //     {
-    //     printf("%c", font[0].ASCIIs[i]);
-    //     // printf("int %c\n", font[i].ASCIIs[j]);
-    //     }
-    // // Checking that functions are working
-    // printf("edc: %c\n", option_e_d_c);
-    // printf("User input: %s\n", user_input);
-    // // printf("Parsed input: %s\n", parsed_input);
-    // // Remember that all of the outputs are references to the holding variable. Save in a holding variable with &.
-    // printf("decimal: %i\n", bi_to_int("00000011"));
-    // //printf("test\n");
-    // printf("binary from int: %s, character: %c\n", int_to_bi(38, binary_string), 38);
-    // printf("binary: %i\n", byte_check("01000110", acceptabytes));
-    // printf("argv1: %s\n", argv[1]);
-    // printf("argv2: %s\n", argv[2]);
-
-   // Run Encrypt/Decrypt/Convert depending on input
+    // Run Encrypt/Decrypt/Convert depending on input
     if (option_e_d_c == 'e')
     {
-        //TODO turn into a function
         encrypt(user_input, font);
     }
     else if (option_e_d_c == 'd')
@@ -327,9 +303,7 @@ int main(int argc, char *argv[])
     }
 
     free(user_input);
-    // free(parsed_input);
     return 0;
-
 }
 
 //--------------------------------------------------------------------------------------------------------------
@@ -352,8 +326,10 @@ bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9])
 }
 
 //--------------------------------------------------------------------------------------------------------------
-// Turn a decimal integer representing an ASCII character into a string representing a binary value.
-// ASCII uses signed binary. This reflects that.
+
+// Turn a decimal integer representing an ASCII character into a byte-sized string of bits.
+// In this case, using the convention that a byte be 8 bits.
+// ASCII uses 7 bits, so for this program each leading number is 0.
 char *int_to_bi(uint8_t charnum, char *binary_location)
 {
     uint8_t place_value = 128;
@@ -376,14 +352,14 @@ char *int_to_bi(uint8_t charnum, char *binary_location)
 }
 
 //--------------------------------------------------------------------------------------------------------------
-// Turn a string representing a byte-sized binary number into an integer.
+
+// Turn a string representing 8 bits into a decimal integer.
 uint8_t bi_to_int(char *binary_input)
 {
     uint8_t sum = 0;
     uint8_t place_value = 128;
     for (int i = 0; i < 8; i++)
     {
-        // Take each number and multiply it to the associated scale
         sum += (uint8_t)(binary_input[i] - '0') * place_value;
         place_value /= 2;
     }
@@ -391,9 +367,8 @@ uint8_t bi_to_int(char *binary_input)
 }
 
 //-------------------------------------------------------------------------------------------
-// Now we need to take the string input, loop through the characters, 
-// and for each character add it's 0 ascii to the string you will return, repeat through 5th index.
-    // LEVEL 4 Function input: string(original) output: string(encoded)
+
+// Takes input from user and turns it into a string of characters representing the bytes that will make letters
 void encrypt(char *e_input, char_font e_font[26])
 {
     for (int i = 0; i < 5; i++)
@@ -402,30 +377,16 @@ void encrypt(char *e_input, char_font e_font[26])
         {
             printf("%c", e_font[(int)(toupper(e_input[j]) - 'A')].ASCIIs[i]);
         }
-        // Decide whether to leave this in, it looks really cool in output just make sure newline characters dont affect input
-        // printf("\n");
     }
 }
 
 //-------------------------------------------------------------------------------------------
-// Now for the reverse:
-    // LEVEL 5 Function input: string(encoded) output: string(decoded)
-        // Will need to divide total number of characters by 5 to figure out where to put newlines
 
-        //big brain plan time
-        //divide string number by 5
-        // for that number times, find binary for that character
-            // go inside the binary and for each determine 0/1 color
-
-
+// Takes input and turns the integers that represent the characters in ASCII into bytes
 void decrypt(char *c_input, char_font c_font[26])
 {
     char binary_storage[9];
-    // printf("%i\n", strlen(c_input));
-    // printf("%c", c_font[(int) c_input[0]].bytes[0][0]);
-    // printf("%s", int_to_bi(((int) c_input[0]), binary_storage));
-    // printf("%i", (int)c_input[0]);
-    // goes through the whole thing
+
     for (int i = 0; i < strlen(c_input); i++)
     {
         int_to_bi(((int) c_input[i]), binary_storage);
@@ -440,15 +401,15 @@ void decrypt(char *c_input, char_font c_font[26])
         {
             if (binary_storage[k] == '0')
             {
-                printf("\033[0;30m");
+                printf("\033[0;90m");
                 printf("%c", binary_storage[k]);
-                printf("\033[0;30m");
+                printf("\033[0;37m");
             }
             else
             {
                 printf("\033[0;32m");
                 printf("%c", binary_storage[k]);
-                printf("\033[0;30m");
+                printf("\033[0;37m");
             }
         }
         
@@ -457,6 +418,7 @@ void decrypt(char *c_input, char_font c_font[26])
 }
 
 //-------------------------------------------------------------------------------------------
+
 // Turn input directly into binary without encrypting
 void convert(char *c_input, char_font c_font[26])
 {
@@ -485,17 +447,8 @@ void convert(char *c_input, char_font c_font[26])
 }
 
 
-// Version from before I looped through chars individually to add color:
-        // for (int i = 0; i < 5; i++)
-        // {
-        //     for (int j = 0; j < strlen(user_input); j++)
-        //     {
-        //            printf("%s", font[(int)(toupper(user_input[j]) - 'A')].bytes[i]);
-        //     }
-        //     printf("\n");
-        // }
 
-        //----------------------------------------------------------------------
+//----------------------------------------------------------------------
 // Ultimate functionality:
     // get string from user
     // If non-encoded, Print encoded
