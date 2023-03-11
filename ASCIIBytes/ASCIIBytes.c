@@ -46,11 +46,11 @@ int main(int argc, char *argv[])
     }
 
     // Assign variables based on input
-    if (strcasecmp(argv[1], "E") == 0 || strcasecmp(argv[1], "encode") == 0)
+    if (strcasecmp(argv[1], "E") == 0 || strcasecmp(argv[1], "encrypt") == 0)
     {
         option_e_d_c = 'e';
     } 
-    else if (strcasecmp(argv[1], "D") == 0 || strcasecmp(argv[1], "decode") == 0)
+    else if (strcasecmp(argv[1], "D") == 0 || strcasecmp(argv[1], "decrypt") == 0)
     {
         option_e_d_c = 'd';
     }
