@@ -30,7 +30,7 @@ uint8_t bi_to_int(char *binary_input);
 char *int_to_bi(uint8_t charnum, char *binary_location);
 bool byte_check(char *binary_being_checked, char array_checking[(126 - 33)][9]);
 void encrypt(char *e_input, char_font e_font[26]);
-// void decrypt(char *d_input, char_font d_font[26]);
+void decrypt(char *d_input, char_font d_font[26]);
 void convert(char *c_input, char_font c_font[26]);
 
 int main(int argc, char *argv[])
@@ -68,14 +68,17 @@ int main(int argc, char *argv[])
     // Pares the input down to a-z characters
     user_input = malloc(sizeof(argv[2]));
     strcpy(user_input, argv[2]);
-    for (int i = 0; i < strlen(user_input); i++)
+    if (option_e_d_c != 'd')
     {
-        // Could use isalpha() but doing it the granular way fits the spirit of the project
-        if (toupper(user_input[i]) < 64 || toupper(user_input[i]) > 91)
+        for (int i = 0; i < strlen(user_input); i++)
         {
-            printf("Alphabetical characters only, please.\n");
-            free(user_input);
-            return 1;
+            // Could use isalpha() but doing it the granular way fits the spirit of the project
+            if (toupper(user_input[i]) < 64 || toupper(user_input[i]) > 91)
+            {
+                printf("Alphabetical characters only, please.\n");
+                free(user_input);
+                return 1;
+            }
         }
     }
 
@@ -290,21 +293,20 @@ int main(int argc, char *argv[])
     }
 
 
-//checking that asciis is getting filled properly
-        for (int i = 0; i < 5; i++)
-        {
-        printf("%c", font[0].ASCIIs[i]);
-        // printf("int %c\n", font[i].ASCIIs[j]);
-        }
-
+    // //checking that asciis is getting filled properly
+    //     for (int i = 0; i < 5; i++)
+    //     {
+    //     printf("%c", font[0].ASCIIs[i]);
+    //     // printf("int %c\n", font[i].ASCIIs[j]);
+    //     }
     // // Checking that functions are working
     // printf("edc: %c\n", option_e_d_c);
     // printf("User input: %s\n", user_input);
     // // printf("Parsed input: %s\n", parsed_input);
     // // Remember that all of the outputs are references to the holding variable. Save in a holding variable with &.
-    printf("decimal: %i\n", bi_to_int("00000011"));
+    // printf("decimal: %i\n", bi_to_int("00000011"));
     // //printf("test\n");
-    printf("binary from int: %s, character: %c\n", int_to_bi(38, binary_string), 38);
+    // printf("binary from int: %s, character: %c\n", int_to_bi(38, binary_string), 38);
     // printf("binary: %i\n", byte_check("01000110", acceptabytes));
     // printf("argv1: %s\n", argv[1]);
     // printf("argv2: %s\n", argv[2]);
@@ -317,7 +319,7 @@ int main(int argc, char *argv[])
     }
     else if (option_e_d_c == 'd')
     {
-        // decrypt(user_input, font);
+        decrypt(user_input, font);
     }
     else
     {
@@ -401,16 +403,47 @@ void encrypt(char *e_input, char_font e_font[26])
             printf("%c", e_font[(int)(toupper(e_input[j]) - 'A')].ASCIIs[i]);
         }
         // Decide whether to leave this in, it looks really cool in output just make sure newline characters dont affect input
-        printf("\n");
+        // printf("\n");
     }
 }
-
-
 
 //-------------------------------------------------------------------------------------------
 // Now for the reverse:
     // LEVEL 5 Function input: string(encoded) output: string(decoded)
         // Will need to divide total number of characters by 5 to figure out where to put newlines
+
+        //big brain plan time
+        //divide string number by 5
+        // for that number times, find binary for that character
+            // go inside the binary and for each determine 0/1 color
+
+
+void decrypt(char *c_input, char_font c_font[26])
+{
+    printf("%i", strlen(c_input));
+    // for (int i = 0; i < (strlen(c_input) / 5); i++)
+    // {
+    //     for (int j = 0; j < strlen(c_input); j++)
+    //     {
+    //         for (int k = 0; k < 8; k++)
+    //         {
+    //             if (c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k] == '0')
+    //             {
+    //                 printf("\033[0;30m");
+    //                 printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
+    //                 printf("\033[0;30m");
+    //             }
+    //             else
+    //             {
+    //                 printf("\033[0;32m");
+    //                 printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
+    //                 printf("\033[0;30m");
+    //             }
+    //         }
+    //     }
+    //     printf("\n");
+    // }
+}
 
 //-------------------------------------------------------------------------------------------
 // Turn input directly into binary without encrypting
