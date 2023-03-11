@@ -420,29 +420,40 @@ void encrypt(char *e_input, char_font e_font[26])
 
 void decrypt(char *c_input, char_font c_font[26])
 {
-    printf("%i", strlen(c_input));
-    // for (int i = 0; i < (strlen(c_input) / 5); i++)
-    // {
-    //     for (int j = 0; j < strlen(c_input); j++)
-    //     {
-    //         for (int k = 0; k < 8; k++)
-    //         {
-    //             if (c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k] == '0')
-    //             {
-    //                 printf("\033[0;30m");
-    //                 printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
-    //                 printf("\033[0;30m");
-    //             }
-    //             else
-    //             {
-    //                 printf("\033[0;32m");
-    //                 printf("%c", c_font[(int)(toupper(c_input[j]) - 'A')].bytes[i][k]);
-    //                 printf("\033[0;30m");
-    //             }
-    //         }
-    //     }
-    //     printf("\n");
-    // }
+    char binary_storage[9];
+    // printf("%i\n", strlen(c_input));
+    // printf("%c", c_font[(int) c_input[0]].bytes[0][0]);
+    // printf("%s", int_to_bi(((int) c_input[0]), binary_storage));
+    // printf("%i", (int)c_input[0]);
+    // goes through the whole thing
+    for (int i = 0; i < strlen(c_input); i++)
+    {
+        int_to_bi(((int) c_input[i]), binary_storage);
+
+        //adds a /n every line
+        if (i % (strlen(c_input) / 5) == 0 && i != 0)
+        {
+            printf("\n");
+        }
+
+        for (int k = 0; k < 8; k++)
+        {
+            if (binary_storage[k] == '0')
+            {
+                printf("\033[0;30m");
+                printf("%c", binary_storage[k]);
+                printf("\033[0;30m");
+            }
+            else
+            {
+                printf("\033[0;32m");
+                printf("%c", binary_storage[k]);
+                printf("\033[0;30m");
+            }
+        }
+        
+    }
+    
 }
 
 //-------------------------------------------------------------------------------------------
